@@ -1,6 +1,6 @@
 # Dotfiles
 
-Config files for my daily driver
+Config files for my daily driver. Inspired by [Catpuccin](https://catppuccin.com/)
 
 Includes configs for:
 
