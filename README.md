@@ -9,5 +9,4 @@ Includes configs for:
 - Neovim
 - Sketchybar (Themed MacOS menu bar)
 - skhd (Key Mapper)
-- Spicetify (Themed Spotify)
 - yabai (WM)
