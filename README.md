@@ -10,3 +10,7 @@ Includes configs for:
 - [Sketchybar](https://github.com/FelixKratz/SketchyBar) (Themed MacOS menu bar)
 - skhd (Key Mapper)
 - yabai (WM)
+
+Requirements:
+
+[JetBrains Mono Nerd Font](https://www.nerdfonts.com/font-downloads) (For Icons)
