@@ -7,12 +7,14 @@
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 
 if [ $SELECTED = true ]; then
-	sketchybar --set $NAME background.drawing=on \
-		background.color=$ACCENT_COLOR \
-		label.color=$WHITE \
+	sketchybar --set $NAME background.drawing=off \
+		icon="󰊠" \
+		icon.font="JetBrainsMono Nerd Font:Semibold:19.0" \
+		icon.padding_left=4 \
 		icon.color=$WHITE
 else
 	sketchybar --set $NAME background.drawing=off \
-		label.color=$WHITE \
+		icon="" \
+		icon.font="JetBrainsMono Nerd Font:Semibold:12.0" \
 		icon.color=$WHITE
 fi
