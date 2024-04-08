@@ -7,6 +7,6 @@ Includes configs for:
 - btop (Task Manager CLI)
 - Neofetch
 - [Neovim](https://github.com/neovim/neovim)
-- Sketchybar (Themed MacOS menu bar)
+- [Sketchybar](https://github.com/FelixKratz/SketchyBar) (Themed MacOS menu bar)
 - skhd (Key Mapper)
 - yabai (WM)
