@@ -13,4 +13,4 @@ Includes configs for:
 
 Requirements:
 
-[JetBrains Mono Nerd Font](https://www.nerdfonts.com/font-downloads) (For Icons)
+[JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) (For Icons)
