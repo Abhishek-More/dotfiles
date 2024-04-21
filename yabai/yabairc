@@ -1,3 +1,7 @@
+# yabai --load-sa has to be added to sudoers to allow the command to run on startup
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
 yabai -m config layout bsp
 
 # New window spawns to the right if vertical split, or bottom if horizontal split
