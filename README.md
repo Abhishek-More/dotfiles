@@ -8,7 +8,7 @@ Includes configs for:
 - Neofetch
 - [Neovim](https://github.com/neovim/neovim)
 - [Sketchybar](https://github.com/FelixKratz/SketchyBar) (Themed MacOS menu bar)
-- skhd (Key Mapper)
+- [skhd](https://github.com/koekeishiya/skhd) (Key Mapper)
 - yabai (WM)
 
 Requirements:
