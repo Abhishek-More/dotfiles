@@ -110,20 +110,6 @@ alias piada="python3 ~/Code/piadabackend/app.py"
 alias gitopen="git remote get-url origin"
 alias spot="spotify_player"
 
-hi() {
-  cd /Users/abhishekmore/Code/highlight.io && \
-  /Applications/Firefox.app/Contents/MacOS/firefox --new-tab -url localhost:3000 && \
-  /Applications/Firefox.app/Contents/MacOS/firefox -url https://figma.com && \
-  /Applications/Firefox.app/Contents/MacOS/firefox -url https://highlight.io && \ 
-  code . && yarn dev
-}
-
-obos() {
-  cd ~/Code/Ouroboros/ && \
-  /Applications/Firefox.app/Contents/MacOS/firefox -url https://github.com/tamuhack-org/Ouroboros && \ 
-  code .
-}
-
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
