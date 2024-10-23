@@ -1,128 +1,89 @@
-neofetch
-#
+if [ -z "$TMUX" ]; then
+  neofetch
+fi
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+source ~/.zprofile
 
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+tmuxswitch() {
+  local session_name="$1"
+  local session_dir="$2"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+  if [ -z "$TMUX" ]; then
+    # If not inside tmux, create a new session with specific tabs and panes
+    if ! tmux has-session -t "$session_name" 2>/dev/null; then
+      # Create a new session
+      tmux new-session -d -s "$session_name" -c "$session_dir"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+      # Create a horizontal split pane in the first window
+      tmux split-window -h -c "$session_dir" -t "$session_name:1"
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+      tmux new-window -c "$session_dir" -t "$session_name" -n "editor"
+      tmux send-keys -t "$session_name:2" 'nvim' C-m
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+      tmux last-window
+    fi
+    # Attach to the session
+    tmux attach-session -t "$session_name"
+  else
+    # Inside tmux: Check if the session exists
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+      # Switch to the existing session
+      tmux switch-client -t "$session_name"
+    else
+      # Create a new session from within tmux
+      tmux new-session -d -s "$session_name" -c "$session_dir"
+      # Create a horizontal split pane in the first window
+      tmux split-window -h -c "$session_dir" -t "$session_name:1"
+      # Create a new window (tab)
+      tmux new-window -c "$session_dir" -t "$session_name" -n "editor" 'nvim'
+      # Attach to the newly created session
+      tmux switch-client -t "$session_name"
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+      # tmux send-keys -t "$session_name:2" 'nvim' C-m
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+      tmux last-window
+    fi
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+  fi
+}
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias c="clear"
-alias t="tmux"
+alias t='tmux'
+alias tn='tmux new-session -s $(basename "$PWD")'
 alias config="cd ~/.config/"
-alias piada="python3 ~/Code/piadabackend/app.py"
 alias gitopen="git remote get-url origin"
 alias spot="spotify_player"
+alias nivm="nvim"
+alias hot="npm run hot"
+alias tablet="npm run tablet"
+alias android="npm run android"
+
+alias pos='tmuxswitch POS ~/Code/Dripos-POS-React-Native/'
+alias oapp='tmuxswitch OAPP ~/Code/Dripos-React-Native/'
+alias oweb='tmuxswitch OWEB ~/Code/Dripos-React-Order/'
+alias hub='tmuxswitch HUB ~/Code/Dripos-Dashboard-React-Native/'
+alias dash='tmuxswitch DASH ~/Code/Dripos-React-Partner/'
+alias server='tmuxswitch SERVER ~/Code/Dripos/'
+alias reader='tmuxswitch READER ~/Code/Dripos-React-Native-Reader/'
 
 eval "$(starship init zsh)"
-eval "$(mcfly init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.1.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-# added by travis gem
-[ ! -s /Users/abhishekmore/.travis/travis.sh ] || source /Users/abhishekmore/.travis/travis.sh
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -134,5 +95,11 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+  
+# ruby 
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export PATH=$PATH:/Users/abhishekmore/.spicetify
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
