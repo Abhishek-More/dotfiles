@@ -1,5 +1,5 @@
-# yabai --load-sa has to be added to sudoers to allow the command to run on startup
-# echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
+# yabai --load-sa must be allowed in sudoers to run at startup.
+# echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 "$(which yabai)" | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
@@ -34,8 +34,15 @@ yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
-
-yabai -m rule --add app="^iTerm2$" space=^2
-yabai -m rule --add app="^Spotify$" space=^3
+yabai -m rule --add app="^Simulator$" manage=off
+yabai -m rule --add app="^Things$" manage=off
+yabai -m rule --add app="^Bear$" manage=off
+yabai -m rule --add app="^Spotify$" space=^3 manage=on
+# yabai -m rule --add app="Arc" manage=on
+# yabai -m rule --add app="Datagrip" manage=on
+# yabai -m rule --add app="Webstorm" manage=on
+# yabai -m rule --add app="Messages" manage=on
+# yabai -m rule --add app="Slack" manage=on
+# yabai -m rule --add app="Terminal" manage=on
 
 yabai -m config external_bar all:32:0

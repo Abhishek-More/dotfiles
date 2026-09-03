@@ -1,3 +1,7 @@
+.zshrc.local
+**/__pycache__/
+*.py[cod]
+
 gh/
 github-copilot/
 spotify-player/
@@ -6,5 +10,5 @@ iterm2/
 
 htop/
 
-btop/btop.conf
 btop/btop.log
+skhd/skhdrc

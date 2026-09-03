@@ -1,8 +1,8 @@
 # change window focus within space
-ctrl - j : yabai -m window --focus south
-ctrl - k : yabai -m window --focus north
-ctrl - h : yabai -m window --focus west
-ctrl - l : yabai -m window --focus east
+# ctrl - j : yabai -m window --focus south
+# ctrl - k : yabai -m window --focus north
+# ctrl - h : yabai -m window --focus west
+# ctrl - l : yabai -m window --focus east
 
 #change focus between external displays (left and right)
 alt - s: yabai -m display --focus west
@@ -27,7 +27,7 @@ shift + alt - m : yabai -m window --toggle zoom-fullscreen
 shift + alt - e : yabai -m space --balance
 
 # swap windows
-shift + cmd - j : yabai -m window --swap south
+#shift + cmd - j : yabai -m window --swap south
 shift + cmd - k : yabai -m window --swap north
 shift + cmd - h : yabai -m window --swap west
 shift + cmd - l : yabai -m window --swap east
@@ -63,10 +63,16 @@ cmd - 5 : yabai -m space --focus 5
 cmd - 6 : yabai -m space --focus 6
 cmd - 7 : yabai -m space --focus 7
 
+cmd - f1 : yabai -m space --focus 4
+cmd - f2 : yabai -m space --focus 5
+cmd - f3 : yabai -m space --focus 6
+
+# Switch to Arc favorites
+alt - 1 : osascript -e 'tell application "Arc" to activate' && osascript -e 'tell application "Arc" to tell front window to tell space "Work" to tell tab 1 to select'
+alt - 2 : osascript -e 'tell application "Arc" to activate' && osascript -e 'tell application "Arc" to tell front window to tell space "Work" to tell tab 2 to select'
+alt - 3 : osascript -e 'tell application "Arc" to activate' && osascript -e 'tell application "Arc" to tell front window to tell space "Work" to tell tab 3 to select'
 
 # stop/start/restart yabai
-ctrl + alt - q : yabai --stop-service
-ctrl + alt - s : yabai --start-service
+ctrl + alt - s : ~/.config/skhd/switch_skhd.sh
 ctrl + alt - r : yabai --restart-service
-
 

@@ -1,16 +1,25 @@
 # Dotfiles
 
-Config files for my daily driver. Inspired by [Catppuccin](https://catppuccin.com/)
+Configuration for my macOS development environment.
 
-Includes configs for:
+## Contents
 
-- btop (Task Manager CLI)
-- Neofetch
-- [Neovim](https://github.com/neovim/neovim)
-- [Sketchybar](https://github.com/FelixKratz/SketchyBar) (Themed MacOS menu bar)
-- [skhd](https://github.com/koekeishiya/skhd) (Key Mapper)
-- yabai (WM)
+- Zsh, tmux, Git
+- Neovim with LazyVim
+- Kitty
+- SketchyBar
+- skhd and yabai
+- Karabiner-Elements
+- btop, Neofetch, and TheFuck
 
-Requirements:
+Root dotfiles map to `$HOME`; named directories map to `$HOME/.config/<name>`.
+Run `~/.config/skhd/switch_skhd.sh` after installing the SKHD profiles to generate the active `skhdrc` for the current display layout.
 
-[JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) (For Icons)
+## Requirements
+
+- Homebrew
+- JetBrainsMono Nerd Font and FiraCode Nerd Font
+- TPM for tmux plugins
+- `jq` for display-aware SketchyBar and SKHD configuration
+
+Machine-specific credentials belong in `~/.zshrc.local`, which is intentionally ignored.

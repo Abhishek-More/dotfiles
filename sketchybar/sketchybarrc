@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Install JetBrainsMono Nerd font and SF Symbols and Icon Font
+# brew install --cask sf-symbols
+# curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+
+DISPLAYS=$(yabai -m query --displays | jq length)
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 
 # This is a demo config to show some of the most important commands more easily.
@@ -19,11 +24,11 @@ SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
 sketchybar --bar height=37 \
-	position=top \
-	sticky=off \
-	padding_left=20 \
-	padding_right=20 \
-	color=$BAR_COLOR
+  position=top \
+  sticky=off \
+  padding_left=20 \
+  padding_right=20 \
+  color=$BAR_COLOR
 
 ##### Changing Defaults #####
 # We now change some default values that are applied to all further items
@@ -31,41 +36,44 @@ sketchybar --bar height=37 \
 # https://felixkratz.github.io/SketchyBar/config/items
 
 sketchybar --default icon.font="JetBrainsMono Nerd Font:Semibold:15.0" \
-	icon.color=$WHITE \
-	label.font="JetBrainsMono Nerd Font:Semibold:13.0" \
-	label.color=$WHITE \
-	background.color=0xff414458 \
-	background.corner_radius=5 \
-	background.height=24 \
-	padding_left=5 \
-	padding_right=5 \
-	label.padding_left=4 \
-	label.padding_right=10 \
-	icon.padding_left=10 \
-	icon.padding_right=4 \
-	background.color=$ITEM_BG_COLOR
+  icon.color=$WHITE \
+  label.font="JetBrainsMono Nerd Font:Semibold:13.0" \
+  label.color=$WHITE \
+  background.color=0xff414458 \
+  background.corner_radius=5 \
+  background.height=24 \
+  padding_left=5 \
+  padding_right=5 \
+  label.padding_left=4 \
+  label.padding_right=10 \
+  icon.padding_left=10 \
+  icon.padding_right=4 \
+  background.color=$ITEM_BG_COLOR
 
 # -- Left Side Items --
 source $ITEM_DIR/spaces.sh
 source $ITEM_DIR/front_app.sh
 
 # -- Right Side Of Notch Items --
-sketchybar --add event spotify_change $SPOTIFY_EVENT \
-	--add item spotify e \
-	--set spotify \
-	icon="" \
-	icon.display=0 \
-	icon.color=0xff414458 \
-	icon.padding_left=8 \
-	icon.padding_right=8 \
-	label.padding_left=0 \
-	label.padding_right=0 \
-	icon.font="JetBrainsMono Nerd Font:Semibold:19.0" \
-	background.color=0xffb3e1a7 \
-	icon.y_offset=0 \
-	label.drawing=off \
-	script="$PLUGIN_DIR/spotify.sh" \
-	--subscribe spotify spotify_change mouse.clicked
+if [ "$DISPLAYS" -lte 1 ]; then
+  sketchybar --add event spotify_change $SPOTIFY_EVENT \
+    --add item spotify e \
+    --set spotify \
+    icon="" \
+    icon.display=0 \
+    icon.color=0xff414458 \
+    icon.padding_left=8 \
+    icon.padding_right=8 \
+    label.padding_left=0 \
+    label.padding_right=0 \
+    icon.font="JetBrainsMono Nerd Font:Semibold:19.0" \
+    background.color=0xffb3e1a7 \
+    icon.y_offset=0 \
+    label.drawing=off \
+    script="$PLUGIN_DIR/spotify.sh" \
+    --subscribe spotify spotify_change mouse.clicked
+fi
+
 source $ITEM_DIR/media.sh
 
 # -- Right Side Items --

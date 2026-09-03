@@ -4,6 +4,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="/opt/homebrew/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -69,20 +70,24 @@ alias nivm="nvim"
 alias hot="npm run hot"
 alias tablet="npm run tablet"
 alias android="npm run android"
+alias propen="gh pr view --web"
+alias codepush="node ~/Code/code-push-server/cli/bin/script/cli.js"
+alias ls="eza --icons=always --group-directories-first"
 
 alias pos='tmuxswitch POS ~/Code/Dripos-POS-React-Native/'
 alias oapp='tmuxswitch OAPP ~/Code/Dripos-React-Native/'
 alias oweb='tmuxswitch OWEB ~/Code/Dripos-React-Order/'
 alias hub='tmuxswitch HUB ~/Code/Dripos-Dashboard-React-Native/'
 alias dash='tmuxswitch DASH ~/Code/Dripos-React-Partner/'
-alias server='tmuxswitch SERVER ~/Code/Dripos/'
+alias server='tmuxswitch SERVER ~/Code/V3Server/'
 alias reader='tmuxswitch READER ~/Code/Dripos-React-Native-Reader/'
+alias readerv3='tmuxswitch V3 ~/Code/Lets-Go-Reader/'
+alias pinstall='yarn && cd ios && pod install --repo-update && cd ..'
+alias readerinstall='adb uninstall com.anonymous.LetsGoReader && adb install ~/Downloads/application*.apk && adb shell am start -n com.anonymous.LetsGoReader/.MainActivity'
 
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.1.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
@@ -90,16 +95,47 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # bun completions
-[ -s "/Users/abhishekmore/.bun/_bun" ] && source "/Users/abhishekmore/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-  
-# ruby 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-export PATH=$PATH:/Users/abhishekmore/.spicetify
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH=$PATH:$HOME/.spicetify
+
+[ -f "$HOME/.deno/env" ] && source "$HOME/.deno/env"
+
+# Created by `pipx` on 2024-12-30 07:56:25
+export PATH="$PATH:$HOME/.local/bin"
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+command -v pyenv >/dev/null && eval "$(pyenv init - zsh)"
+export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
+
+eval $(thefuck --alias)
+
+# opencode
+export PATH=$HOME/.opencode/bin:$PATH
+
+# OpenClaw Completion
+[ -f "$HOME/.openclaw/completions/openclaw.zsh" ] && source "$HOME/.openclaw/completions/openclaw.zsh"
+
+export VISUAL="nvim"
+
+alias fleet='python3 ~/omp-fleet/fleet.py'
+
+# Suppress punycode deprecation warning (DEP0040) across all node processes
+export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--disable-warning=DEP0040"
+
+killp() { local pids; pids=$(lsof -ti:"$1") && kill -9 $pids; }
+
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
